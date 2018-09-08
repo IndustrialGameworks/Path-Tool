@@ -9,7 +9,7 @@ public class PathFollow : MonoBehaviour {
 
     public int speed = 10;
 
-    int currentNavDenominator = 0;
+    int currentNavDenominator = 0; 
 
     bool initiated;
 	// Use this for initialization
@@ -53,17 +53,17 @@ public class PathFollow : MonoBehaviour {
         }
     }
 
-    void MoveToNav()
+    void MoveToNav() //moves the nav points in specific order
     { 
-        Vector2 currentLocation = transform.position;
-        Vector2 targetLocation = navLocations[currentNavDenominator];
+        Vector2 currentLocation = transform.position; //the current vector of the object
+        Vector2 targetLocation = navLocations[currentNavDenominator]; //the current target vector
 
-        if (currentLocation != targetLocation)
+        if (currentLocation != targetLocation) //if the current location is not equal to the target location move towards target location
         {
             transform.position = (Vector2.MoveTowards(new Vector2(currentLocation.x, currentLocation.y), targetLocation, speed * Time.deltaTime));
         }
 
-        else if (currentLocation == targetLocation)
+        else if (currentLocation == targetLocation) //when reached the target location, increment the denominator, so that the target location calls the next index in the array
         {
             currentNavDenominator++;
         }
