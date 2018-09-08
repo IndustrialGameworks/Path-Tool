@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PathPlacer : MonoBehaviour {
 
+    public bool debug = false;
+
     public float spacing = .1f;
     public float resolution = 1;
     public int pointDenominator = 0; //for naming nav points
@@ -13,12 +15,17 @@ public class PathPlacer : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Vector2[] points = FindObjectOfType<PathCreator>().path.CalculateEvenlySpacedPoints(spacing, resolution);
+        Vector2[] points = this.GetComponent<PathCreator>().path.CalculateEvenlySpacedPoints(spacing, resolution); //gets the pathcreator of the object this script is attached to, generates from that
         foreach (Vector2 p in points)
         {
             GameObject g = new GameObject("NavPoint" + pointDenominator); //adds game objects at points
             g.transform.SetParent(this.gameObject.transform, true);
-            //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere); //for debug
+
+            if (debug == true)
+            {
+                g = GameObject.CreatePrimitive(PrimitiveType.Sphere); //for debug
+            }
+
             g.transform.position = p;
             g.transform.localScale = Vector3.one * spacing * .5f;
             NavPoints.Add(g); //adds navpoints to list

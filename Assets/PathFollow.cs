@@ -65,7 +65,10 @@ public class PathFollow : MonoBehaviour {
 
         else if (currentLocation == targetLocation) //when reached the target location, increment the denominator, so that the target location calls the next index in the array
         {
-            currentNavDenominator++;
+            if (currentNavDenominator < navLocations.Length - 1) //make sure you can't go out of array bounds with next increment
+            {
+                currentNavDenominator++;
+            }
         }
     }
 }
